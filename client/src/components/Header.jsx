@@ -3,61 +3,122 @@ import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { TextInput } from 'flowbite-react';
 import { Button } from 'flowbite-react';
-import { FaMoon } from 'react-icons/fa'
+import { FaMoon } from 'react-icons/fa';
+import React from 'react';
 
-import React from 'react'
+// Import the Feather SVG
+import FeatherIcon from './feather.svg'; // Adjust the path based on where you store the SVG
 
+// Import the Old Paper Texture
+import oldPaperTexture from '../assets/old-paper-texture.jpg'; // Adjust the path accordingly
+
+// Add a Google Font for Calligraphy (e.g., "Dancing Script")
+import '@fontsource/dancing-script'; // You can also use 'Great Vibes' or other calligraphy fonts
 
 export default function Header() {
     const path = useLocation().pathname;
-  return (
-    <Navbar className='border-b-2'>
-      <Link to='/' className='self-center whitespace-nowrap text-sm
-      sm:text-xl font-semibold dark:text-white'>
-          <span className='px-2 py-1 bg-gradient-to-r
-          from-blue-500 to-pink-500 rounded-lg text-white'>Mayuri's</span>
-          Poems
-      
-      </Link>
-      <form>
-        <TextInput
-          type='text'
-          placeholder='Search...'
-          rightIcon={AiOutlineSearch}
-          className='hidden lg:inline'
-        />
-      </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch />
-      </Button>
-      <div className="flex gap-2 md:order-2">
-        <Button className='w-12 h-10 hidden sm:inline' color='gray' pill>
-          <FaMoon />
-        </Button>
-        <Link to='/sign-in'>
-          <Button gradientDuoTone='purpleToPink'>
-            Sign In
-          </Button>
-        </Link>
-        <Navbar.Toggle />
-      </div>
-        <Navbar.Collapse>
-          <Navbar.Link active={path === "/"} as={'div'}>
-            <Link to='/'>
-                Home
+
+    return (
+        <Navbar 
+            className='border-b-2' 
+            style={{ 
+                backgroundImage: `url(${oldPaperTexture})`, 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center',
+                color: '#4b3621' // Dark brown text to match the "old paper" theme
+            }}
+        >
+            <Link to='/' className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
+                <span className='px-2 py-1 bg-gradient-to-r'>
+                    <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '500' }}>
+                        Mayuri's
+                    </em>
+                </span>
+                <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '500' }}>
+                    Poems
+                </em>
+                <img 
+                    src={FeatherIcon} 
+                    alt="Feather Icon" 
+                    className='inline-block w-5 h-5 ml-2' 
+                    style={{ verticalAlign: 'baseline', marginTop: '-4px' }} 
+                />
             </Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === "/about"} as={'div'}>
-            <Link to='/about'>
-                About
-            </Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === "/poems"} as={'div'}>
-            <Link to='/poems'>
-                Poems
-            </Link>
-          </Navbar.Link>
-        </Navbar.Collapse>
-    </Navbar>
-  )
+
+            <form>
+                <TextInput
+                    type='text'
+                    placeholder='Search...'
+                    rightIcon={AiOutlineSearch}
+                    className='hidden lg:inline text-sm' 
+                    style={{
+                        backgroundColor: '#f5f5dc', // Light beige background to match old paper
+                        border: '1px solid #4b3621', // Dark brown border
+                        color: '#4b3621', // Dark brown text
+                        padding: '0.5rem'
+                    }}
+                />
+            </form>
+            
+            <Button 
+                className='w-12 h-10 lg:hidden' 
+                style={{
+                    backgroundColor: '#4b3621', // Dark brown
+                    color: '#f5f5dc', // Light beige text
+                    borderRadius: '50%',
+                    border: 'none'
+                }}
+            >
+                <AiOutlineSearch />
+            </Button>
+
+            <div className="flex gap-2 md:order-2">
+                <Button 
+                    className='w-12 h-10 hidden sm:inline'
+                    style={{
+                        backgroundColor: '#4b3621', // Dark brown for night mode button
+                        color: '#f5f5dc', // Light beige text
+                        borderRadius: '50%',
+                        border: 'none'
+                    }}
+                >
+                    <FaMoon />
+                </Button>
+
+                <Link to='/sign-in'>
+                    <Button 
+                        style={{
+                            backgroundColor: '#b38b6d', // Soft sepia tone for sign-in button
+                            color: '#f5f5dc', // Light beige text
+                            border: '1px solid #4b3621', // Dark brown border
+                            padding: '0.5rem 1rem',
+                            borderRadius: '12px'
+                        }}
+                    >
+                        Sign In
+                    </Button>
+                </Link>
+
+                <Navbar.Toggle />
+            </div>
+            
+            <Navbar.Collapse>
+                <Navbar.Link active={path === "/"} as={'div'}>
+                    <Link to='/'>
+                        Home
+                    </Link>
+                </Navbar.Link>
+                <Navbar.Link active={path === "/about"} as={'div'}>
+                    <Link to='/about'>
+                        About
+                    </Link>
+                </Navbar.Link>
+                <Navbar.Link active={path === "/poems"} as={'div'}>
+                    <Link to='/poems'>
+                        Poems
+                    </Link>
+                </Navbar.Link>
+            </Navbar.Collapse>
+        </Navbar>
+    )
 }

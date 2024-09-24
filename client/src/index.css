@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Apply old paper texture to the entire page */
+body {
+    background-image: url('./assets/old-paper-texture.jpg'); /* Adjust the path accordingly */
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Change this to match your design */
+    color: #4b3621; /* Match text color to the header */
+}
