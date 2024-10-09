@@ -1,8 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FeatherIcon from './feather.svg';
-import { Button, Label, TextInput } from "flowbite-react";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.id]: e.target.value.trim() });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage('Please fill out all fields.');
+    } 
+    try {
+      setLoading(true);
+      setErrorMessage(null);
+      const res = await fetch('api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success == false) {
+        return setErrorMessage('User already exists');
+      }
+      setLoading(false);
+      if(res.ok) {
+        navigate('/sign-in');
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setLoading(false);
+    }
+  }
+  console.log(formData);
   return(
     <div className='min-h-screen mt-20' style={{ backgroundImage: `url('./assets/old-paper-texture.jpg')`, backgroundSize: 'cover' }}>
       <div className="flex flex-col md:flex-row p-3 max-w-5xl mx-auto gap-10">
@@ -33,7 +68,7 @@ export default function SignUp() {
 
         {/* Right side (Sign Up form) */}
         <div className='flex-1 md:w-1/2'>
-          <form className='flex flex-col gap-4'>
+          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div>
               <Label value='Your username' className='text-brown-600' />
               <TextInput
@@ -47,6 +82,7 @@ export default function SignUp() {
                   color: '#4b3621', // Dark brown text
                   padding: '0.5rem'
                 }}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -62,6 +98,7 @@ export default function SignUp() {
                   color: '#4b3621', // Dark brown text
                   padding: '0.5rem'
                 }}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -77,14 +114,23 @@ export default function SignUp() {
                   color: '#4b3621', // Dark brown text
                   padding: '0.5rem'
               }}
+              onChange={handleChange}
               />
             </div>
-            <Button className='bg-brown-600 hover:bg-brown-700 text-beige-100'  style={{
+            <Button className='text-beige-100 bg-[#4b3621] hover:bg-[#3a2918]'  style={{
                         backgroundColor: '#4b3621', // Dark brown for night mode button
                         color: '#f5f5dc', // Light beige text
                         border: 'none'
-                    }}>
-              Sign Up
+                    }}
+                    type='submit' disabled={loading}>
+               {loading ? (
+                <>
+                  <Spinner size='sm' />
+                  <span className='pl-3'>Loading...</span>
+                </>
+              ) : (
+                'Sign Up'
+              )}
             </Button>
           </form>
 
@@ -94,6 +140,13 @@ export default function SignUp() {
               Sign In
             </Link>
           </div>
+          {
+            errorMessage && (
+              <Alert className='mt-5' color='failure'>
+                {errorMessage}
+              </Alert>
+            )
+          }
         </div>
       </div>
     </div>
