@@ -30,11 +30,11 @@ export default function Header() {
         >
             <Link to='/' className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
                 <span className='px-2 py-1 bg-gradient-to-r'>
-                    <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '500' }}>
+                    <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '600' }}>
                         Mayuri's
                     </em>
                 </span>
-                <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '500' }}>
+                <em style={{ fontFamily: '"Dancing Script", cursive', fontSize: '1.5rem', fontWeight: '600' }}>
                     Poems
                 </em>
                 <img 
