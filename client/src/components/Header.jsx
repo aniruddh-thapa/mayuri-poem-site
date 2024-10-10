@@ -1,10 +1,11 @@
-import { Navbar, NavbarCollapse } from 'flowbite-react';
+import { Avatar,Dropdown, Navbar, NavbarCollapse } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { TextInput } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 import { FaMoon } from 'react-icons/fa';
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 // Import the Feather SVG
 import FeatherIcon from './feather.svg'; // Adjust the path based on where you store the SVG
@@ -17,6 +18,7 @@ import '@fontsource/dancing-script'; // You can also use 'Great Vibes' or other 
 
 export default function Header() {
     const path = useLocation().pathname;
+    const {currentUser} = useSelector(state => state.user)
 
     return (
         <Navbar 
@@ -84,9 +86,29 @@ export default function Header() {
                 >
                     <FaMoon />
                 </Button>
-
-                <Link to='/sign-in'>
-                    <Button 
+                {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>
+                {currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+            <Link to='/sign-in'>
+                                <Button 
                         style={{
                             backgroundColor: '#b38b6d', // Soft sepia tone for sign-in button
                             color: '#f5f5dc', // Light beige text
@@ -95,10 +117,11 @@ export default function Header() {
                             borderRadius: '12px'
                         }}
                     >
-                        Sign In
-                    </Button>
-                </Link>
 
+              Sign In
+            </Button>
+          </Link>
+        )}
                 <Navbar.Toggle />
             </div>
             
