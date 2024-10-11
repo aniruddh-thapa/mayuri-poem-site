@@ -12,4 +12,10 @@ body {
     color: #4b3621; /* Match text color to the header */
 }
 
+body{
+    height: 100vh;
+}
 
+.ql-editor{
+    font-size: 1.05rem;
+}
