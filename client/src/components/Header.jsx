@@ -6,6 +6,8 @@ import { Button } from 'flowbite-react';
 import { FaMoon } from 'react-icons/fa';
 import React from 'react';
 import {useSelector} from 'react-redux';
+import { signoutSuccess } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 // Import the Feather SVG
 import FeatherIcon from './feather.svg'; // Adjust the path based on where you store the SVG
@@ -19,7 +21,22 @@ import '@fontsource/dancing-script'; // You can also use 'Great Vibes' or other 
 export default function Header() {
     const path = useLocation().pathname;
     const {currentUser} = useSelector(state => state.user)
-
+    const dispatch = useDispatch();
+    const handleSignout = async () => {
+        try {
+          const res = await fetch('/api/user/signout', {
+            method: 'POST',
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            console.log(data.message);
+          } else {
+            dispatch(signoutSuccess());
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
     return (
         <Navbar 
             className='border-b-2' 
@@ -104,7 +121,7 @@ export default function Header() {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
             <Link to='/sign-in'>
