@@ -122,30 +122,46 @@ export default function UpdatePost() {
               setFormData({ ...formData, title: e.target.value })
             }
             value={formData.title}
+            style={{
+                backgroundColor: '#f5e1c1',  // Light brown background color
+                color: '#4b3621',            // Dark brown text color
+                border: '1px solid #4b3621', // Dark brown border
+                padding: '10px'
+              }}
           />
           <Select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
             value={formData.category}
+            style={{
+                backgroundColor: '#f5e1c1',  // Light brown background color
+                color: '#4b3621',            // Dark brown text color
+                border: '1px solid #4b3621', // Dark brown border
+
+              }}
           >
             <option value='uncategorized'>Select a category</option>
-            <option value='javascript'>JavaScript</option>
-            <option value='reactjs'>React.js</option>
-            <option value='nextjs'>Next.js</option>
+            <option value='romantic'>Romantic</option>
+            <option value='sad'>Sad</option>
+            <option value='poetfav'>Poet's Favourite</option>
           </Select>
         </div>
-        <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
+        <div className='flex gap-4 items-center justify-between border-4 border-black border-dotted p-3'>
           <FileInput
             type='file'
             accept='image/*'
             onChange={(e) => setFile(e.target.files[0])}
+            style={{
+                backgroundColor: '#f5e1c1',  // Light brown background color
+                color: '#4b3621',            // Dark brown text color
+                border: '1px solid #4b3621', // Dark brown border
+              }}
           />
           <Button
             type='button'
-            gradientDuoTone='purpleToBlue'
+            gradientDuoTone='redToYellow'
             size='sm'
-            outline
             onClick={handleUpdloadImage}
             disabled={imageUploadProgress}
           >
@@ -177,6 +193,12 @@ export default function UpdatePost() {
           required
           onChange={(value) => {
             setFormData({ ...formData, content: value });
+          }}
+          style={{
+            backgroundColor: '#f5e1c1',  // Light brown background color
+            color: '#4b3621',            // Dark brown text color
+           // Dark brown border
+            padding: '10px'
           }}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>
