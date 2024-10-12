@@ -142,9 +142,10 @@ export default function UpdatePost() {
               }}
           >
             <option value='uncategorized'>Select a category</option>
-            <option value='romantic'>Romantic</option>
-            <option value='sad'>Sad</option>
-            <option value='poetfav'>Poet's Favourite</option>
+            <option value='Romantic'>Romantic</option>
+            <option value='Sad'>Sad</option>
+            <option value='Poets Favourite'>Poet's Favourite</option>
+            <option value='Quotes'>Quotes</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-black border-dotted p-3'>

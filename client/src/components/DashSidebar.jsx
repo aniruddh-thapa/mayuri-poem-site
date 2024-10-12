@@ -61,7 +61,7 @@ export default function DashSidebar() {
                 as='div'
                 className="bg-[#DEB887] text-[#4b3621] hover:bg-[#D2B48C]"
               >
-                Posts
+                Poems
               </Sidebar.Item>
             </Link>
           )}

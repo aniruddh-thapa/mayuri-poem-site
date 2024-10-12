@@ -73,14 +73,14 @@ export default function DashPosts() {
   };
 
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-[#e6d2b5] scrollbar-thumb-[#a6895b] dark:scrollbar-track-[#5c4930] dark:scrollbar-thumb-[#a6895b]">
+    <div className="w-full table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-[#e6d2b5] scrollbar-thumb-[#a6895b] dark:scrollbar-track-[#5c4930] dark:scrollbar-thumb-[#a6895b]">
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <>
           <Table hoverable className="shadow-md bg-[#f5e6c1]">
             <Table.Head className="bg-[#c7a57a]">
               <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Date updated</Table.HeadCell>
-              <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Post image</Table.HeadCell>
-              <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Post title</Table.HeadCell>
+              <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Poem image</Table.HeadCell>
+              <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Poem title</Table.HeadCell>
               <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Category</Table.HeadCell>
               <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">Delete</Table.HeadCell>
               <Table.HeadCell className="bg-[#c7a57a] text-[#4b3621]">
