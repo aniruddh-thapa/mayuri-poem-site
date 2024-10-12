@@ -1,5 +1,5 @@
 import { Sidebar } from 'flowbite-react';
-import { HiUser, HiArrowSmRight, HiDocumentText, HiAnnotation, HiOutlineUserGroup } from 'react-icons/hi';
+import { HiUser, HiArrowSmRight, HiDocumentText, HiAnnotation, HiOutlineUserGroup, HiChartPie } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -41,6 +41,18 @@ export default function DashSidebar() {
     className='h-full overflow-y-auto overflow-x-hidden rounded px-3 py-4 bg-[#f5deb3] bg-cover bg-center text-[#4b3621]'>
 <Sidebar.Items>
   <Sidebar.ItemGroup className='flex flex-col gap-1'>
+  {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=dash'>
+              <Sidebar.Item
+                active={tab === 'dash' || !tab}
+                icon={HiChartPie}
+                as='div'
+                className="bg-[#DEB887] text-[#4b3621] hover:bg-[#D2B48C]"
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
     <Sidebar.Item
       active={tab === 'profile'}
       icon={HiUser}

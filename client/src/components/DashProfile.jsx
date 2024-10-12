@@ -222,7 +222,7 @@ export default function DashProfile() {
                 color: '#4b3621', // Dark brown text
                 padding: '0.5rem'
             }} onChange={handleChange}/>
-            <Button type='submit' gradientDuoTone='redToYellow'
+            <Button type='submit' gradientDuoTone='pinkToOrange'
             disabled={loading || imageFileUploading}>
                 {loading ? 'Loading...' : 'Update'}
             </Button>
@@ -230,7 +230,7 @@ export default function DashProfile() {
           <Link to={'/create-post'}>
             <Button
               type='button'
-              gradientDuoTone='tealToLime'
+              gradientDuoTone='pinkToOrange'
               className='w-full'
 
             >
