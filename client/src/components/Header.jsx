@@ -1,10 +1,10 @@
 import { Avatar,Dropdown, Navbar, NavbarCollapse } from 'flowbite-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { TextInput } from 'flowbite-react';
 import { Button } from 'flowbite-react';
 import { FaMoon } from 'react-icons/fa';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSelector} from 'react-redux';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
@@ -20,8 +20,18 @@ import '@fontsource/dancing-script'; // You can also use 'Great Vibes' or other 
 
 export default function Header() {
     const path = useLocation().pathname;
+    const location = useLocation();
+    const navigate = useNavigate();
     const {currentUser} = useSelector(state => state.user)
     const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const searchTermFromUrl = urlParams.get('searchTerm');
+        if (searchTermFromUrl) {
+          setSearchTerm(searchTermFromUrl);
+        }
+      }, [location.search]);
     const handleSignout = async () => {
         try {
           const res = await fetch('/api/user/signout', {
@@ -37,6 +47,17 @@ export default function Header() {
           console.log(error.message);
         }
       };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('searchTerm', searchTerm);
+        const searchQuery = urlParams.toString();
+        navigate(`/search?${searchQuery}`);
+      };
+
+      
+    
     return (
         <Navbar 
             className='border-b-2' 
@@ -64,7 +85,7 @@ export default function Header() {
                 />
             </Link>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <TextInput
                     type='text'
                     placeholder='Search...'
@@ -76,6 +97,8 @@ export default function Header() {
                         color: '#4b3621', // Dark brown text
                         padding: '0.5rem'
                     }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </form>
             
@@ -87,6 +110,7 @@ export default function Header() {
                     borderRadius: '50%',
                     border: 'none'
                 }}
+                onClick={handleSubmit}
             >
                 <AiOutlineSearch />
             </Button>
